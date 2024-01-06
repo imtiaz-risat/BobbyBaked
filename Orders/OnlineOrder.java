@@ -1,5 +1,9 @@
 package Orders;
 
+import java.util.ArrayList;
+import java.util.List;
+import Products.BakeryItem;
+
 public class OnlineOrder implements Order {
     private List<BakeryItem> items;
 

@@ -1,5 +1,9 @@
 package Inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+import Products.BakeryItem;
+
 public class InventoryManager implements InventoryManagement {
     private static InventoryManager instance;
     private List<BakeryItem> inventory;

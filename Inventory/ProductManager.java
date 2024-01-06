@@ -1,5 +1,9 @@
 package Inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+import Products.BakeryItem;
+
 public class ProductManager implements ProductManagement {
     private List<BakeryItem> products;
 
