@@ -18,4 +18,9 @@ public class Cake implements BakeryItem {
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public String getType() {
+        return flavor;
+    }
 }

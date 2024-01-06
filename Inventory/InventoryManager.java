@@ -1,33 +1,49 @@
 package Inventory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import Products.BakeryItem;
 
 public class InventoryManager implements InventoryManagement {
-    private static InventoryManager instance;
+    private static InventoryManager inventoryManager;
     private List<BakeryItem> inventory;
+    private Map<String, Integer> itemCounts;
 
     private InventoryManager() {
         this.inventory = new ArrayList<>();
+        itemCounts = new HashMap<>();
     }
 
     public static InventoryManager getInstance() {
-        if (instance == null) {
-            instance = new InventoryManager();
+        if (inventoryManager == null) {
+            inventoryManager = new InventoryManager();
         }
-        return instance;
+        return inventoryManager;
     }
 
     public void addInventoryItem(BakeryItem item) {
         inventory.add(item);
+        itemCounts.put(item.getClass().getSimpleName(),
+                itemCounts.getOrDefault(item.getClass().getSimpleName(), 0) + 1);
     }
 
     @Override
     public void trackInventory() {
         System.out.println("Current Inventory:");
+
+        // Use a Set to keep track of distinct items
+        Set<String> uniqueItems = new HashSet<>();
+
         for (BakeryItem item : inventory) {
-            item.display();
+            if (uniqueItems.add(item.getClass().getSimpleName())) {
+                int itemCount = itemCounts.getOrDefault(item.getClass().getSimpleName(), 0);
+                System.out.println(item.getClass().getSimpleName() + " - " + itemCount + "pc");
+            }
         }
     }
 

@@ -13,13 +13,15 @@ public class BobbyBakedApp {
     public static void main(String[] args) {
         // Sample usage of the Bakery Management System
         // Create bakery items
-        BakeryItem cake = new Cake("Chocolate", 25.0);
-        BakeryItem pastry = new Pastry("Croissant", 5.0);
+        BakeryItem cake1 = new Cake("Chocolate", 25.0);
+        BakeryItem pastry1 = new Pastry("Croissant", 5.0);
+        BakeryItem pastry2 = new Pastry("Velvet", 5.0);
 
         // Create product manager and add products
         ProductManager productManager = new ProductManager();
-        productManager.addProduct(cake);
-        productManager.addProduct(pastry);
+        productManager.addProduct(cake1);
+        productManager.addProduct(pastry1);
+        productManager.addProduct(pastry2);
 
         // Display current inventory
         InventoryManager.getInstance().trackInventory();
@@ -34,8 +36,8 @@ public class BobbyBakedApp {
 
         // Create online order and add items
         OnlineOrder onlineOrder = new OnlineOrder();
-        onlineOrder.addItem(cake);
-        onlineOrder.addItem(pastry);
+        onlineOrder.addItem(cake1);
+        onlineOrder.addItem(pastry1);
 
         // Process the online order
         onlineOrder.processOrder();
@@ -47,7 +49,7 @@ public class BobbyBakedApp {
 
         // Create in-store order and add items
         InStoreOrder inStoreOrder = new InStoreOrder();
-        inStoreOrder.addItem(pastry);
+        inStoreOrder.addItem(pastry2);
 
         // Process the in-store order
         inStoreOrder.processOrder();
