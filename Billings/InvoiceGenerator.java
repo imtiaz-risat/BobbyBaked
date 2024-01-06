@@ -1,3 +1,5 @@
+package Billings;
+
 public class InvoiceGenerator implements Billing {
     @Override
     public double generateInvoice(Order order) {

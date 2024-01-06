@@ -1,3 +1,5 @@
+package Products;
+
 public class Pastry implements BakeryItem {
     private String type;
     private double price;

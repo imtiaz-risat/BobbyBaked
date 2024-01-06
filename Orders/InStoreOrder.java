@@ -1,3 +1,5 @@
+package Orders;
+
 public class InStoreOrder implements Order {
     private List<BakeryItem> items;
 

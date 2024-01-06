@@ -1,3 +1,5 @@
+package Inventory;
+
 public class ProductManager implements ProductManagement {
     private List<BakeryItem> products;
 

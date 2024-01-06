@@ -1,3 +1,5 @@
+package Inventory;
+
 public class InventoryManager implements InventoryManagement {
     private static InventoryManager instance;
     private List<BakeryItem> inventory;

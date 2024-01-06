@@ -1,3 +1,5 @@
+package Products;
+
 public class Cake implements BakeryItem {
     private String flavor;
     private double price;

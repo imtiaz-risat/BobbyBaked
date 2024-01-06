@@ -1,3 +1,5 @@
+package Employees;
+
 public class Employee {
     private String name;
     // Additional employee details

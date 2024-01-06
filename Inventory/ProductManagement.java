@@ -1,3 +1,5 @@
+package Inventory;
+
 public interface ProductManagement {
     void addProduct(BakeryItem item);
     void updateProduct(BakeryItem item);
