@@ -17,7 +17,7 @@ public class BobbyBakedApp {
         BakeryItem pastry = new Pastry("Croissant", 5.0);
 
         // Create product manager and add products
-        ProductManagement productManager = new ProductManager();
+        ProductManager productManager = new ProductManager();
         productManager.addProduct(cake);
         productManager.addProduct(pastry);
 
@@ -25,7 +25,7 @@ public class BobbyBakedApp {
         InventoryManager.getInstance().trackInventory();
 
         // Create employee manager and add employees
-        EmployeeManagement employeeManager = new EmployeeManager();
+        EmployeeManager employeeManager = new EmployeeManager();
         Employee employee1 = new Employee("John Doe");
         employeeManager.addEmployee(employee1);
 
@@ -33,15 +33,27 @@ public class BobbyBakedApp {
         employeeManager.updateEmployee(employee1);
 
         // Create online order and add items
-        Order onlineOrder = new OnlineOrder();
-        ((OnlineOrder) onlineOrder).addItem(cake);
-        ((OnlineOrder) onlineOrder).addItem(pastry);
+        OnlineOrder onlineOrder = new OnlineOrder();
+        onlineOrder.addItem(cake);
+        onlineOrder.addItem(pastry);
 
         // Process the online order
         onlineOrder.processOrder();
 
         // Generate invoice for the order
-        Billing invoiceGenerator = new InvoiceGenerator();
-        invoiceGenerator.generateInvoice(onlineOrder);
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        double invoiceAmount = invoiceGenerator.generateInvoice(onlineOrder);
+        System.out.println("Invoice Amount: $" + invoiceAmount);
+
+        // Create in-store order and add items
+        InStoreOrder inStoreOrder = new InStoreOrder();
+        inStoreOrder.addItem(pastry);
+
+        // Process the in-store order
+        inStoreOrder.processOrder();
+
+        // Generate invoice for the in-store order
+        double inStoreInvoiceAmount = invoiceGenerator.generateInvoice(inStoreOrder);
+        System.out.println("In-Store Invoice Amount: $" + inStoreInvoiceAmount);
     }
 }

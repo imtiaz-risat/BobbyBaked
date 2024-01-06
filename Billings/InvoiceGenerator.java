@@ -1,5 +1,7 @@
 package Billings;
 
+import Orders.Order;
+
 public class InvoiceGenerator implements Billing {
     @Override
     public double generateInvoice(Order order) {

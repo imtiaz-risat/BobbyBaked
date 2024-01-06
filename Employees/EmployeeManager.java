@@ -1,5 +1,8 @@
 package Employees;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmployeeManager implements EmployeeManagement {
     private List<Employee> employees;
 
