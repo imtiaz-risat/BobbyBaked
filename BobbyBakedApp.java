@@ -22,9 +22,15 @@ public class BobbyBakedApp {
         productManager.addProduct(cake1);
         productManager.addProduct(pastry1);
         productManager.addProduct(pastry2);
+        productManager.addProduct(cake1);
+        productManager.addProduct(pastry1);
+        productManager.addProduct(pastry2);
 
         // Display current inventory
         InventoryManager.getInstance().trackInventory();
+
+        // Check Low Inventory
+        InventoryManager.getInstance().checkLowInventory();
 
         // Create employee manager and add employees
         EmployeeManager employeeManager = new EmployeeManager();
@@ -57,5 +63,6 @@ public class BobbyBakedApp {
         // Generate invoice for the in-store order
         double inStoreInvoiceAmount = invoiceGenerator.generateInvoice(inStoreOrder);
         System.out.println("In-Store Invoice Amount: $" + inStoreInvoiceAmount);
+
     }
 }

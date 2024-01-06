@@ -47,10 +47,21 @@ public class InventoryManager implements InventoryManagement {
         }
     }
 
+    private void alertLowInventory(BakeryItem item, int count) {
+        System.out.println("Alert: There's " + count + " " + item.getClass().getSimpleName() + " in the inventory!");
+    }
+
     @Override
-    public void alertLowInventory() {
-        // Implementation to alert low inventory
-        // Placeholder, actual implementation needed
-        System.out.println("Alert: Low inventory!");
+    public void checkLowInventory() {
+        Set<String> uniqueItems = new HashSet<>();
+
+        for (BakeryItem item : inventory) {
+            if (uniqueItems.add(item.getClass().getSimpleName())) {
+                int itemCount = itemCounts.getOrDefault(item.getClass().getSimpleName(), 0);
+                if (itemCount <= 3) {
+                    alertLowInventory(item, itemCount);
+                }
+            }
+        }
     }
 }
