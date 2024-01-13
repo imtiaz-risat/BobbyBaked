@@ -50,8 +50,7 @@ public class BobbyBakedApp {
 
         // Create employee manager and add employees
         EmployeeManager employeeManager = new EmployeeManager();
-        Employee employee1 = new Employee(100, "John Doe");
-        employeeManager.addEmployee(employee1);
+        employeeManager.addEmployee();
 
         // Update an employee
         employeeManager.updateEmployee();

@@ -13,9 +13,15 @@ public class EmployeeManager implements EmployeeManagement {
     }
 
     @Override
-    public void addEmployee(Employee employee) {
+    public void addEmployee() {
+        System.out.println("Adding new Employee...");
+        System.out.println("Enter name: ");
+        String name = scanner.next();
+        System.out.println("Enter ID: ");
+        int id = scanner.nextInt();
+        Employee employee = new Employee(id, name);
         employees.add(employee);
-        // Additional logic for employee addition
+        System.out.println("Employee Added!");
     }
 
     @Override
@@ -36,8 +42,17 @@ public class EmployeeManager implements EmployeeManagement {
     }
 
     @Override
-    public void removeEmployee(Employee employee) {
-        employees.remove(employee);
+    public void removeEmployee() {
+        System.out.println("Enter employee ID to remove: ");
+        int id = scanner.nextInt();
+
+        Employee empToRemove = getEmployeeById(id);
+        if (empToRemove != null) {
+            employees.remove(empToRemove);
+            System.out.println("Employee removed!");
+        } else {
+            System.out.println("No employee found with ID " + id);
+        }
     }
 
     private void displayEmployeeDetails(Employee empToUpdate) {

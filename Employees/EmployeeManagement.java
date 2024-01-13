@@ -1,9 +1,9 @@
 package Employees;
 
 public interface EmployeeManagement {
-    void addEmployee(Employee employee);
+    void addEmployee();
 
     void updateEmployee();
 
-    void removeEmployee(Employee employee);
+    void removeEmployee();
 }
