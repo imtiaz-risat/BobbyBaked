@@ -7,11 +7,27 @@ import Inventory.InventoryManager;
 import Inventory.ProductManager;
 import Employees.Employee;
 import Employees.EmployeeManager;
+
+import java.util.Scanner;
+
 import Billings.InvoiceGenerator;
 
 public class BobbyBakedApp {
+
+    public static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         // Sample usage of the Bakery Management System
+        // Create bakery items
+
+        int scanned = scanner.nextInt();
+        // if (scanned == 1) {
+        // System.out.println("Taking in-store order...");
+
+        // } else {
+        // System.out.println("Taking online order...");
+        // }
+
         // Create bakery items
         BakeryItem cake1 = new Cake("Chocolate", 25.0);
         BakeryItem pastry1 = new Pastry("Croissant", 5.0);
@@ -34,11 +50,11 @@ public class BobbyBakedApp {
 
         // Create employee manager and add employees
         EmployeeManager employeeManager = new EmployeeManager();
-        Employee employee1 = new Employee("John Doe");
+        Employee employee1 = new Employee(100, "John Doe");
         employeeManager.addEmployee(employee1);
 
         // Update an employee
-        employeeManager.updateEmployee(employee1);
+        employeeManager.updateEmployee();
 
         // Create online order and add items
         OnlineOrder onlineOrder = new OnlineOrder();
