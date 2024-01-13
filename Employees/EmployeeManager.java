@@ -33,7 +33,7 @@ public class EmployeeManager implements EmployeeManagement {
         displayEmployeeDetails(empToUpdate);
         if (empToUpdate != null) {
             System.out.println("Enter new name: ");
-            String name = scanner.next();
+            String name = scanner.nextLine();
             empToUpdate.setName(name);
             System.out.println("Employee details updated!");
         } else {
