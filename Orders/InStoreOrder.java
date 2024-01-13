@@ -6,6 +6,7 @@ import Products.BakeryItem;
 
 public class InStoreOrder implements Order {
     private List<BakeryItem> items;
+    public double totalPrice;
 
     public InStoreOrder() {
         this.items = new ArrayList<>();
@@ -21,5 +22,14 @@ public class InStoreOrder implements Order {
         for (BakeryItem item : items) {
             item.display();
         }
+        System.out.println("===========================");
+    }
+
+    @Override
+    public double getTotalPrice() {
+        for (BakeryItem item : items) {
+            totalPrice += item.getPrice();
+        }
+        return totalPrice;
     }
 }

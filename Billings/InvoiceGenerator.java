@@ -5,9 +5,9 @@ import Orders.Order;
 public class InvoiceGenerator implements Billing {
     @Override
     public double generateInvoice(Order order) {
-        // Implementation to generate an invoice for an order
-        // Actual calculation needed
-        System.out.println("Invoice generated for the order");
+        order.processOrder();
+        System.out.println(String.format("Total price for order is: $%.2f", order.getTotalPrice()));
+        System.out.println("Thank You for your order !");
         return 0.0;
     }
 }
