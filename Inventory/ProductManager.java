@@ -1,19 +1,19 @@
 package Inventory;
 
-//import java.util.ArrayList;
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 import Products.BakeryItem;
 
 public class ProductManager implements ProductManagement {
-    // private List<BakeryItem> products;
+    private List<BakeryItem> products;
 
     public ProductManager() {
-        // this.products = new ArrayList<>();
+        this.products = new ArrayList<>();
     }
 
     @Override
     public void addProduct(BakeryItem item) {
-        // products.add(item);
+        products.add(item);
         InventoryManager.getInstance().addInventoryItem(item);
     }
 

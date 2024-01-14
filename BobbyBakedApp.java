@@ -20,7 +20,7 @@ public class BobbyBakedApp {
         // Sample usage of the Bakery Management System
         // Create bakery items
 
-        int scanned = scanner.nextInt();
+        // int scanned = scanner.nextInt();
         // if (scanned == 1) {
         // System.out.println("Taking in-store order...");
 
@@ -50,10 +50,10 @@ public class BobbyBakedApp {
 
         // Create employee manager and add employees
         EmployeeManager employeeManager = new EmployeeManager();
-        employeeManager.addEmployee();
+        // employeeManager.addEmployee();
 
         // Update an employee
-        employeeManager.updateEmployee();
+        // employeeManager.updateEmployee();
 
         // Create online order and add items
         OnlineOrder onlineOrder = new OnlineOrder();
