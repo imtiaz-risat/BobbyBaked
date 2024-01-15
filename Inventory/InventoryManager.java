@@ -26,20 +26,20 @@ public class InventoryManager extends Inventory implements InventoryManagement {
         return inventoryManager;
     }
 
-    public void addInventoryItem(BakeryItem item) {
+    // public void addInventoryItem(BakeryItem item) {
 
-        inventory.add(item);
+    // inventory.add(item);
 
-        String itemName = item.getClass().getSimpleName();
+    // String itemName = item.getClass().getSimpleName();
 
-        if (itemCounts.containsKey(itemName)) {
-            int count = itemCounts.get(item.getClass().getSimpleName());
-            itemCounts.remove(itemName, count);
-            itemCounts.put(item.getClass().getSimpleName(), count + 1);
-        } else {
-            itemCounts.put(item.getClass().getSimpleName(), 1);
-        }
-    }
+    // if (itemCounts.containsKey(itemName)) {
+    // int count = itemCounts.get(item.getClass().getSimpleName());
+    // itemCounts.remove(itemName, count);
+    // itemCounts.put(item.getClass().getSimpleName(), count + 1);
+    // } else {
+    // itemCounts.put(item.getClass().getSimpleName(), 1);
+    // }
+    // }
 
     @Override
     public void trackInventory() {
