@@ -32,4 +32,12 @@ public class InStoreOrder implements Order {
         }
         return totalPrice;
     }
+
+    public void removeItem(BakeryItem item) {
+        items.remove(item);
+    }
+
+    public List<BakeryItem> getItems() {
+        return items;
+    }
 }

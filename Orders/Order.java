@@ -4,4 +4,5 @@ public interface Order {
     void processOrder();
 
     double getTotalPrice();
+
 }

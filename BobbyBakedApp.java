@@ -7,14 +7,151 @@ import Inventory.InventoryManager;
 import Inventory.ProductManager;
 import Employees.Employee;
 import Employees.EmployeeManager;
+import Billings.InvoiceGenerator;
 
 import java.util.Scanner;
-
-import Billings.InvoiceGenerator;
 
 public class BobbyBakedApp {
 
     public static Scanner scanner = new Scanner(System.in);
+    public static OnlineOrder onlineOrder = new OnlineOrder();
+
+    public void customerDashboard() {
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("Welcome to Bobby's Baked Goods!");
+            System.out.println("1. Make Order");
+            System.out.println("2. View Cart");
+            System.out.println("3. Checkout");
+            System.out.println("4. Exit");
+
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    makeOrder();
+                    break;
+                case 2:
+                    viewCart();
+                    break;
+                case 3:
+                    checkout();
+                    exit = true;
+                    break;
+                case 4:
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    public void makeOrder() {
+
+        System.out.println("1. Cake");
+        System.out.println("2. Pastry");
+
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        if (choice == 1) {
+            System.out.println("We have these flavors available:");
+            System.out.println("Chocolate, Vanilla, Butter");
+            System.out.println("Choose Flavor: ");
+            String flavor = scanner.nextLine();
+
+            if (flavor.equals("Chocolate") || flavor.equals("Vanilla") || flavor.equals("Butter")) {
+                BakeryItem cake = new Cake(flavor, 30);
+                onlineOrder.addItem(cake);
+                System.out.println(cake.getType() + " cake added to order!");
+                System.out.println("=====================\n1. Add More Items\n2. Checkout");
+                choice = Integer.parseInt(scanner.nextLine());
+
+                if (choice == 1) {
+                    makeOrder();
+                } else if (choice == 2) {
+                    checkout();
+                } else {
+                    System.out.println("Invalid option selected! Exiting...");
+                    return;
+                }
+            } else {
+                System.out.println("This flavor is not available!");
+                makeOrder();
+            }
+        } else if (choice == 2) {
+            System.out.println("We have these pastries available...");
+            System.out.println("1. Cheesecake\n2. Danish\n3. Velvet");
+            System.out.println("Choose Pastry: ");
+            String flavor = scanner.nextLine();
+
+            if (flavor.equals("Danish") || flavor.equals("Cheesecake") || flavor.equals("Velvet")) {
+
+                int price;
+                if (flavor.equals("Danish")) {
+                    price = 80;
+                } else if (flavor.equals("Cheesecake")) {
+                    price = 170;
+                } else {
+                    price = 120;
+                }
+
+                BakeryItem pastry = new Pastry("Croissant", price);
+                onlineOrder.addItem(pastry);
+                System.out.println(pastry.getType() + " pastry added to order!");
+                System.out.println("=====================\n1. Add More Items\n2. Checkout");
+                choice = Integer.parseInt(scanner.nextLine());
+
+                if (choice == 1) {
+                    makeOrder();
+                } else if (choice == 2) {
+                    System.out.println("Checkout complete! Thank you for your order.");
+                } else {
+                    System.out.println("Invalid option selected! Exiting...");
+                    return;
+                }
+            } else {
+                System.out.println("This pastry is not available");
+                makeOrder();
+            }
+        }
+
+    }
+
+    public void viewCart() {
+        System.out.println("Your Cart:");
+        double total = 0;
+        for (BakeryItem item : onlineOrder.getItems()) {
+            System.out.println(item.getType() + ": " + item.getPrice());
+            total += item.getPrice();
+        }
+        System.out.println("Total: " + total);
+
+        System.out.println("=====================\n1. Add More Items\n2. Checkout");
+        int choice = scanner.nextInt();
+
+        if (choice == 1) {
+            makeOrder();
+        } else if (choice == 2) {
+            System.out.println("Checkout complete! Thank you for your order.");
+        } else {
+            System.out.println("Invalid option selected! Exiting...");
+            return;
+        }
+    }
+
+    public void checkout() {
+        if (onlineOrder.getTotalPrice() > 0) {
+            System.out.println("Generating invoice...");
+            InvoiceGenerator invoice = new InvoiceGenerator();
+            invoice.generateInvoice(onlineOrder);
+
+            System.out.println("Thank you for your order!");
+        } else {
+            System.out.println("Your cart is empty. Please add some items.");
+            makeOrder();
+        }
+    }
 
     public static void main(String[] args) {
         // Sample usage of the Bakery Management System
