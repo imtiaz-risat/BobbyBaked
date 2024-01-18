@@ -10,4 +10,5 @@ public class InvoiceGenerator implements Billing {
         System.out.println("Thank You for your order !");
         return 0.0;
     }
+
 }

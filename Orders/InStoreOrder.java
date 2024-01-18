@@ -33,6 +33,15 @@ public class InStoreOrder implements Order {
         return totalPrice;
     }
 
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    public void clearOrder() {
+        items.clear();
+        totalPrice = 0;
+    }
+
     public void removeItem(BakeryItem item) {
         items.remove(item);
     }

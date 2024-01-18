@@ -33,6 +33,17 @@ public class OnlineOrder implements Order {
         return totalPrice;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    @Override
+    public void clearOrder() {
+        items.clear();
+        totalPrice = 0;
+    }
+
     public void removeItem(BakeryItem item) {
         items.remove(item);
     }

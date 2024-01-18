@@ -1,16 +1,19 @@
 
 //import Orders.OnlineOrder;
-//import Orders.InStoreOrder;
+import Products.BakeryItem;
+import Products.Cake;
+import Products.Pastry;
+import Orders.InStoreOrder;
 //import Products.BakeryItem;
 //import Products.Cake;
 //import Products.Pastry;
 import Inventory.InventoryManager;
 import Inventory.ProductManager;
-//import Employees.Employee;
-//import Employees.EmployeeManager;
 //import Billings.InvoiceGenerator;
 
 import java.util.Scanner;
+
+import Billings.InvoiceGenerator;
 
 public class BobbyBakedApp {
     public static void main(String[] args) {
@@ -86,14 +89,68 @@ public class BobbyBakedApp {
 
     private static void handleMakeOrder(Scanner scanner, ProductManager productManager,
             InventoryManager inventoryManager) {
-        // Implement the logic for making an order
-        // You may need to create additional methods and classes for this functionality
-        System.out.println("Make Order functionality not implemented yet.");
+        InStoreOrder customerOrder = new InStoreOrder();
+
+        while (true) {
+            printOrderMenu();
+
+            int orderChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (orderChoice) {
+                case 1:
+                    addCakeToOrder(scanner, productManager, customerOrder);
+                    break;
+                case 2:
+                    addPastryToOrder(scanner, productManager, customerOrder);
+                    break;
+                case 3:
+                    processOrder(productManager, inventoryManager, customerOrder);
+                    return; // Back to customer menu
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void printOrderMenu() {
+        System.out.println("\nMake Order Menu:");
+        System.out.println("1. Add Cake to Order");
+        System.out.println("2. Add Pastry to Order");
+        System.out.println("3. Process Order");
+        System.out.print("Enter your choice: ");
+    }
+
+    private static void addCakeToOrder(Scanner scanner, ProductManager productManager, InStoreOrder customerOrder) {
+
+        System.out.println("Add Cake to Order functionality not implemented yet.");
+    }
+
+    private static void addPastryToOrder(Scanner scanner, ProductManager productManager, InStoreOrder customerOrder) {
+
+        System.out.println("Add Pastry to Order functionality not implemented yet.");
+    }
+
+    private static void processOrder(ProductManager productManager, InventoryManager inventoryManager,
+            InStoreOrder customerOrder) {
+        if (customerOrder.isEmpty()) {
+            System.out.println("No items in the order. Returning to Customer Menu.");
+            return;
+        }
+
+        System.out.println("\nProcessing Order...\n\n");
+
+        for (BakeryItem item : customerOrder.getItems()) {
+            productManager.removeProduct(item);
+        }
+
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        invoiceGenerator.generateInvoice(customerOrder);
+
+        customerOrder.clearOrder();
     }
 
     private static void handleViewCart(Scanner scanner) {
-        // Implement the logic for viewing the cart
-        // You may need to create additional methods and classes for this functionality
         System.out.println("View Cart functionality not implemented yet.");
     }
 
@@ -130,16 +187,46 @@ public class BobbyBakedApp {
 
     private static void handleAddProduct(Scanner scanner, ProductManager productManager,
             InventoryManager inventoryManager) {
-        // Implement the logic for adding a product
-        // You may need to create additional methods and classes for this functionality
-        System.out.println("Add Product functionality not implemented yet.");
+        System.out.println("\nAdd Product:");
+
+        System.out.print("Enter product type (Cake/Pastry): ");
+        String productType = scanner.nextLine();
+
+        System.out.print("Enter flavor: ");
+        String flavor = scanner.nextLine();
+
+        System.out.print("Enter price: ");
+        double price = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline
+
+        BakeryItem newProduct;
+
+        if (productType.equalsIgnoreCase("Cake")) {
+            newProduct = new Cake(flavor, price);
+        } else if (productType.equalsIgnoreCase("Pastry")) {
+            newProduct = new Pastry(flavor, price);
+        } else {
+            System.out.println("Invalid product type. Product not added.");
+            return;
+        }
+
+        productManager.addProduct(newProduct);
+        System.out.println("Product added successfully.");
     }
 
     private static void handleCheckAvailability(Scanner scanner, ProductManager productManager,
             InventoryManager inventoryManager) {
-        // Implement the logic for checking product availability
-        // You may need to create additional methods and classes for this functionality
-        System.out.println("Check Availability functionality not implemented yet.");
+        System.out.println("\nCheck Product Availability:");
+
+        System.out.print("Enter product type (Cake/Pastry): ");
+        String productType = scanner.nextLine();
+
+        System.out.print("Enter flavor: ");
+        String flavor = scanner.nextLine();
+
+        int availableQuantity = inventoryManager.getAvailableQuantity(productType, flavor);
+
+        System.out.println("Available Quantity: " + availableQuantity);
     }
 
     private static void inventoryManagerMenu(Scanner scanner, InventoryManager inventoryManager) {

@@ -102,4 +102,19 @@ public class InventoryManager extends Inventory implements InventoryManagement {
             }
         }
     }
+
+    public int getAvailableQuantity(String productType, String flavor) {
+        int count = 0;
+
+        for (BakeryItem item : inventory) {
+            String itemName = item.getClass().getSimpleName();
+
+            // Assuming productType and flavor are case-insensitive
+            if (itemName.equalsIgnoreCase(productType) && item.getType().equalsIgnoreCase(flavor)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
 }

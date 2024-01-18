@@ -1,8 +1,9 @@
 package Inventory;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import Products.BakeryItem;
 
@@ -12,8 +13,8 @@ public class ProductManager extends Inventory implements ProductManagement {
     private static Map<String, Integer> itemCounts = getSharedItemCount();
 
     public ProductManager() {
-        // inventory = new ArrayList<>();
-        // itemCounts = new Map<>();
+        inventory = new ArrayList<>();
+        itemCounts = new HashMap<>();
     }
 
     @Override
