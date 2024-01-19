@@ -5,4 +5,8 @@ public interface Order {
 
     double getTotalPrice();
 
+    boolean isEmpty();
+
+    void clearOrder();
+
 }

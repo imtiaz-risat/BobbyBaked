@@ -61,15 +61,16 @@ public class BobbyBakedApp {
         while (true) {
             printCustomerMenu();
 
+            InStoreOrder customerOrder = new InStoreOrder();
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
-                    handleMakeOrder(scanner, productManager, inventoryManager);
+                    handleMakeOrder(scanner, productManager, inventoryManager, customerOrder);
                     break;
                 case 2:
-                    handleViewCart(scanner);
+                    handleViewCart(scanner, customerOrder);
                     break;
                 case 3:
                     return; // Back to main menu
@@ -88,8 +89,7 @@ public class BobbyBakedApp {
     }
 
     private static void handleMakeOrder(Scanner scanner, ProductManager productManager,
-            InventoryManager inventoryManager) {
-        InStoreOrder customerOrder = new InStoreOrder();
+            InventoryManager inventoryManager, InStoreOrder customerOrder) {
 
         while (true) {
             printOrderMenu();
@@ -105,8 +105,13 @@ public class BobbyBakedApp {
                     addPastryToOrder(scanner, productManager, customerOrder);
                     break;
                 case 3:
+                    handleViewCart(scanner, customerOrder);
+                    break;
+                case 4:
                     processOrder(productManager, inventoryManager, customerOrder);
-                    return; // Back to customer menu
+                    return;
+                case 5:
+                    return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -117,18 +122,68 @@ public class BobbyBakedApp {
         System.out.println("\nMake Order Menu:");
         System.out.println("1. Add Cake to Order");
         System.out.println("2. Add Pastry to Order");
-        System.out.println("3. Process Order");
+        System.out.println("3. View Cart");
+        System.out.println("4. Process Order");
+        System.out.println("5. Cancel Order");
         System.out.print("Enter your choice: ");
     }
 
     private static void addCakeToOrder(Scanner scanner, ProductManager productManager, InStoreOrder customerOrder) {
+        System.out.println("Adding Cake to Order:");
 
-        System.out.println("Add Cake to Order functionality not implemented yet.");
+        System.out.print("Enter Cake flavor (Chocolate/Vanilla/Butter): ");
+        String flavor = scanner.nextLine();
+
+        Cake cake;
+        switch (flavor.toLowerCase()) {
+            case "chocolate":
+                cake = new Cake("Chocolate", 80);
+                break;
+            case "vanilla":
+                cake = new Cake("Vanilla", 70);
+                break;
+            case "butter":
+                cake = new Cake("Butter", 100);
+                break;
+            default:
+                System.out.println("Invalid flavor. Cake not added to the order.");
+                return;
+        }
+
+        // Add the Cake to the customerOrder
+        customerOrder.addItem(cake);
+
+        System.out.println(cake.getType() + " Cake added to the order");
     }
 
     private static void addPastryToOrder(Scanner scanner, ProductManager productManager, InStoreOrder customerOrder) {
+        System.out.println("Adding Pastry to Order:");
 
-        System.out.println("Add Pastry to Order functionality not implemented yet.");
+        // Take input for flavor
+        System.out.print("Enter Pastry flavor (Cheesecake/Velvet/Blackforest): ");
+        String flavor = scanner.nextLine();
+
+        // Create a Pastry object based on the flavor input
+        Pastry pastry;
+        switch (flavor.toLowerCase()) {
+            case "cheesecake":
+                pastry = new Pastry("Cheesecake", 180); // Assuming the price is not relevant for this operation
+                break;
+            case "velvet":
+                pastry = new Pastry("Velvet", 150);
+                break;
+            case "blackforest":
+                pastry = new Pastry("Blackforest", 160);
+                break;
+            default:
+                System.out.println("Invalid flavor. Pastry not added to the order.");
+                return;
+        }
+
+        // Add the Pastry to the customerOrder
+        customerOrder.addItem(pastry);
+
+        System.out.println(pastry.getType() + " Pastry added to the order");
     }
 
     private static void processOrder(ProductManager productManager, InventoryManager inventoryManager,
@@ -150,8 +205,21 @@ public class BobbyBakedApp {
         customerOrder.clearOrder();
     }
 
-    private static void handleViewCart(Scanner scanner) {
-        System.out.println("View Cart functionality not implemented yet.");
+    private static void handleViewCart(Scanner scanner, InStoreOrder customerOrder) {
+        System.out.println("\nViewing Cart:");
+
+        // Check if the cart is empty
+        if (customerOrder.isEmpty()) {
+            System.out.println("No items in the cart.");
+            return;
+        }
+
+        // Iterate through items in the cart
+        for (BakeryItem item : customerOrder.getItems()) {
+            item.display();
+        }
+        System.out.println("===========================");
+        System.out.println("Total: $" + customerOrder.getTotalPrice());
     }
 
     private static void handleProductManagerMenu(Scanner scanner, ProductManager productManager,
