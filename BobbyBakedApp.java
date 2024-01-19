@@ -129,61 +129,51 @@ public class BobbyBakedApp {
     }
 
     private static void addCakeToOrder(Scanner scanner, ProductManager productManager, InStoreOrder customerOrder) {
+        if (productManager.checkAvailability("Cake") <= 0) {
+            System.out.println("Sorry, cakes are currently out of stock. Please select another item.");
+            return;
+        }
+
         System.out.println("Adding Cake to Order:");
 
         System.out.print("Enter Cake flavor (Chocolate/Vanilla/Butter): ");
         String flavor = scanner.nextLine();
 
-        Cake cake;
-        switch (flavor.toLowerCase()) {
-            case "chocolate":
-                cake = new Cake("Chocolate", 80);
-                break;
-            case "vanilla":
-                cake = new Cake("Vanilla", 70);
-                break;
-            case "butter":
-                cake = new Cake("Butter", 100);
-                break;
-            default:
-                System.out.println("Invalid flavor. Cake not added to the order.");
-                return;
+        if (flavor.equals("chocolate") || flavor.equals("vanilla") || flavor.equals("butter")) {
+            Cake cake = new Cake(flavor);
+
+            // Add the Cake to the customerOrder
+            customerOrder.addItem(cake);
+
+            System.out.println(cake.getType() + " Cake added to the order");
+        } else {
+            System.out.println("Invalid flavor. Please enter a valid flavor.");
         }
-
-        // Add the Cake to the customerOrder
-        customerOrder.addItem(cake);
-
-        System.out.println(cake.getType() + " Cake added to the order");
     }
 
     private static void addPastryToOrder(Scanner scanner, ProductManager productManager, InStoreOrder customerOrder) {
+        if (productManager.checkAvailability("Pastry") <= 0) {
+            System.out.println("Sorry, pastries are currently out of stock. Please select another item.");
+            return;
+        }
+
         System.out.println("Adding Pastry to Order:");
 
-        // Take input for flavor
         System.out.print("Enter Pastry flavor (Cheesecake/Velvet/Blackforest): ");
         String flavor = scanner.nextLine();
 
-        // Create a Pastry object based on the flavor input
-        Pastry pastry;
-        switch (flavor.toLowerCase()) {
-            case "cheesecake":
-                pastry = new Pastry("Cheesecake", 180); // Assuming the price is not relevant for this operation
-                break;
-            case "velvet":
-                pastry = new Pastry("Velvet", 150);
-                break;
-            case "blackforest":
-                pastry = new Pastry("Blackforest", 160);
-                break;
-            default:
-                System.out.println("Invalid flavor. Pastry not added to the order.");
-                return;
+        if (flavor.equals("Cheesecake") || flavor.equals("Velvet") || flavor.equals("Blackforest")) {
+            Pastry pastry = new Pastry(flavor);
+
+            // Add the Pastry to the customerOrder
+            customerOrder.addItem(pastry);
+
+            System.out.println(pastry.getType() + " Pastry added to the order");
+        } else {
+            System.out.println("Invalid pastry flavor. Pastry not added to the order.");
+            return;
         }
 
-        // Add the Pastry to the customerOrder
-        customerOrder.addItem(pastry);
-
-        System.out.println(pastry.getType() + " Pastry added to the order");
     }
 
     private static void processOrder(ProductManager productManager, InventoryManager inventoryManager,
@@ -263,16 +253,23 @@ public class BobbyBakedApp {
         System.out.print("Enter flavor: ");
         String flavor = scanner.nextLine();
 
-        System.out.print("Enter price: ");
-        double price = scanner.nextDouble();
-        scanner.nextLine(); // Consume newline
-
         BakeryItem newProduct;
 
         if (productType.equalsIgnoreCase("Cake")) {
-            newProduct = new Cake(flavor, price);
+            if (flavor.equals("Chocolate") || flavor.equals("Vanilla") || flavor.equals("Butter")) {
+                newProduct = new Cake(flavor);
+            } else {
+                System.out.println("Invalid cake flavor. Product not added.");
+                return;
+            }
+
         } else if (productType.equalsIgnoreCase("Pastry")) {
-            newProduct = new Pastry(flavor, price);
+            if (flavor.equals("Cheesecake") || flavor.equals("Velvet") || flavor.equals("Blackforest")) {
+                newProduct = new Pastry(flavor);
+            } else {
+                System.out.println("Invalid pastry flavor. Product not added.");
+                return;
+            }
         } else {
             System.out.println("Invalid product type. Product not added.");
             return;

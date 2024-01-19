@@ -4,9 +4,9 @@ public class Cake implements BakeryItem {
     private String flavor;
     private double price;
 
-    public Cake(String flavor, double price) {
+    public Cake(String flavor) {
         this.flavor = flavor;
-        this.price = price;
+        this.price = getPrice();
     }
 
     @Override
@@ -16,7 +16,14 @@ public class Cake implements BakeryItem {
 
     @Override
     public double getPrice() {
-        return price;
+        if (flavor == "Chocolate") {
+            return 90.00;
+        } else if (flavor == "Vanilla") {
+            return 70.00;
+        } else if (flavor == "Butter") {
+            return 100.00;
+        }
+        return 90.00;
     }
 
     @Override

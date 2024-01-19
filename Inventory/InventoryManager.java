@@ -1,7 +1,5 @@
 package Inventory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +9,12 @@ import Products.BakeryItem;
 
 public class InventoryManager extends Inventory implements InventoryManagement {
     private static InventoryManager inventoryManager;
-    private static List<BakeryItem> inventory = getSharedList();
+    private static List<BakeryItem> inventory;
     private Map<String, Integer> itemCounts;
 
     private InventoryManager() {
-        inventory = new ArrayList<>();
-        itemCounts = new HashMap<String, Integer>();
+        inventory = getSharedList();
+        itemCounts = getSharedItemCount();
     }
 
     public static InventoryManager getInstance() {
@@ -26,20 +24,6 @@ public class InventoryManager extends Inventory implements InventoryManagement {
         return inventoryManager;
     }
 
-    // public void addInventoryItem(BakeryItem item) {
-
-    // inventory.add(item);
-
-    // String itemName = item.getClass().getSimpleName();
-
-    // if (itemCounts.containsKey(itemName)) {
-    // int count = itemCounts.get(item.getClass().getSimpleName());
-    // itemCounts.remove(itemName, count);
-    // itemCounts.put(item.getClass().getSimpleName(), count + 1);
-    // } else {
-    // itemCounts.put(item.getClass().getSimpleName(), 1);
-    // }
-    // }
     @Override
     public void addProduct(BakeryItem item) {
 
@@ -60,7 +44,7 @@ public class InventoryManager extends Inventory implements InventoryManagement {
     public void trackInventory() {
         System.out.println("Current Inventory:");
 
-        // Use a Set to keep track of distinct items
+        // Using Set to keep track of distinct items
         Set<String> uniqueItems = new HashSet<>();
 
         for (BakeryItem item : inventory) {
@@ -71,17 +55,6 @@ public class InventoryManager extends Inventory implements InventoryManagement {
             }
         }
     }
-
-    // @Override
-    // public void trackInventory() {
-    // System.out.println("Current Inventory:");
-
-    // for (BakeryItem item : inventory) {
-    // int itemCount = itemCounts.getOrDefault(item.getClass().getSimpleName(), 0);
-    // System.out.println(item.getClass().getSimpleName() + " - " + itemCount +
-    // "pc");
-    // }
-    // }
 
     private void alertLowInventory(BakeryItem item, int count) {
         System.out.println("Alert: There's " + count + " " + item.getClass().getSimpleName() + " in the inventory!");
@@ -97,7 +70,7 @@ public class InventoryManager extends Inventory implements InventoryManagement {
                 if (itemCount <= 1) {
                     alertLowInventory(item, itemCount);
                 } else {
-                    System.out.println("All products are in sufficient amount!");
+                    System.out.println(item.getClass().getSimpleName() + " are in sufficient amount!");
                 }
             }
         }
@@ -109,7 +82,6 @@ public class InventoryManager extends Inventory implements InventoryManagement {
         for (BakeryItem item : inventory) {
             String itemName = item.getClass().getSimpleName();
 
-            // Assuming productType and flavor are case-insensitive
             if (itemName.equalsIgnoreCase(productType) && item.getType().equalsIgnoreCase(flavor)) {
                 count++;
             }

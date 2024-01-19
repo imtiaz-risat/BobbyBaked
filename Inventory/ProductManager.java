@@ -35,14 +35,6 @@ public class ProductManager extends Inventory implements ProductManagement {
         }
     }
 
-    // @Override
-    // public void updateProduct(BakeryItem item) {
-    // Implementation to update product details
-    // Placeholder, actual implementation needed
-    // System.out.println("Product updated: ");
-    // item.display();
-    // }
-
     @Override
     public void removeProduct(BakeryItem item) {
 
