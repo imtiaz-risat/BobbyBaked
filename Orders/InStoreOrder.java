@@ -27,6 +27,7 @@ public class InStoreOrder implements Order {
 
     @Override
     public double getTotalPrice() {
+        totalPrice = 0;
         for (BakeryItem item : items) {
             totalPrice += item.getPrice();
         }

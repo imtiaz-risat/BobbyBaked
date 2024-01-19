@@ -289,12 +289,9 @@ public class BobbyBakedApp {
         System.out.print("Enter product type (Cake/Pastry): ");
         String productType = scanner.nextLine();
 
-        System.out.print("Enter flavor: ");
-        String flavor = scanner.nextLine();
+        int count = productManager.checkAvailability(productType);
 
-        int availableQuantity = inventoryManager.getAvailableQuantity(productType, flavor);
-
-        System.out.println("Available Quantity: " + availableQuantity);
+        System.out.println("Available Quantity: " + count);
     }
 
     private static void inventoryManagerMenu(Scanner scanner, InventoryManager inventoryManager) {

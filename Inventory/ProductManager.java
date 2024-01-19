@@ -9,12 +9,12 @@ import Products.BakeryItem;
 
 public class ProductManager extends Inventory implements ProductManagement {
     // private List<BakeryItem> products;
-    private static List<BakeryItem> inventory = getSharedList();
-    private static Map<String, Integer> itemCounts = getSharedItemCount();
+    private static List<BakeryItem> inventory;
+    private static Map<String, Integer> itemCounts;
 
     public ProductManager() {
-        inventory = new ArrayList<>();
-        itemCounts = new HashMap<>();
+        inventory = getSharedList();
+        itemCounts = getSharedItemCount();
     }
 
     @Override
@@ -28,15 +28,17 @@ public class ProductManager extends Inventory implements ProductManagement {
             int count = itemCounts.get(item.getClass().getSimpleName());
             itemCounts.remove(itemName, count);
             itemCounts.put(item.getClass().getSimpleName(), count + 1);
+            System.out.println("Product updated: " + item.getClass().getSimpleName() + " quantity: " + (count + 1));
         } else {
             itemCounts.put(item.getClass().getSimpleName(), 1);
+            System.out.println("Product added: " + item.getClass().getSimpleName() + " quantity: 1");
         }
     }
 
     // @Override
     // public void updateProduct(BakeryItem item) {
-    // // Implementation to update product details
-    // // Placeholder, actual implementation needed
+    // Implementation to update product details
+    // Placeholder, actual implementation needed
     // System.out.println("Product updated: ");
     // item.display();
     // }
@@ -48,25 +50,25 @@ public class ProductManager extends Inventory implements ProductManagement {
 
         String itemName = item.getClass().getSimpleName();
 
-        if (checkAvailability(item)) {
+        if (checkAvailability(itemName) > 0) {
             int count = itemCounts.get(item.getClass().getSimpleName());
             itemCounts.remove(itemName, count);
-            itemCounts.put(item.getClass().getSimpleName(), count + 1);
+            itemCounts.put(item.getClass().getSimpleName(), count - 1);
         } else {
             itemCounts.put(item.getClass().getSimpleName(), 0);
             System.out.println("There's no ");
         }
     }
 
-    public boolean checkAvailability(BakeryItem item) {
+    public int checkAvailability(String itemName) {
 
-        String itemName = itemCounts.getClass().getSimpleName();
+        // String itemName = itemCounts.getClass().getSimpleName();
         if (itemCounts.containsKey(itemName)) {
-            int count = itemCounts.get(item.getClass().getSimpleName());
+            int count = itemCounts.get(itemName);
             if (count > 0) {
-                return true;
+                return count;
             }
         }
-        return false;
+        return 0;
     }
 }
